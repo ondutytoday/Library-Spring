@@ -2,14 +2,11 @@ package org.vasileva.library.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.vasileva.library.model.Books;
 import org.vasileva.library.service.BooksService;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 
 @Controller
@@ -29,23 +26,24 @@ public class BooksController {
         return "index";
     }
 
-    @GetMapping (value = "/{id}")
+    @GetMapping ("/{id}")
+    @Transactional
     public String showBook (@PathVariable (value = "id") Long id, Model model) {
         model.addAttribute("book", booksService.getById(id));
         return "show";
     }
 
-    @GetMapping (value = "/new")
+    @GetMapping ("/new")
     public String newBook (Model model) {
         model.addAttribute("book", new Books());
         return "new";
     }
 
-    @PostMapping()
+/*    @PostMapping()
     public String createBook (@ModelAttribute("book") Books book) {
         booksService.save(book);
         return "redirect:index";
-    }
+    }*/
 
 
 

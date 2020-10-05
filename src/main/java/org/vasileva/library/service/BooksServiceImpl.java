@@ -18,7 +18,8 @@ public class BooksServiceImpl implements BooksService{
 
     @Override
     public Books getById(Long id) {
-        return booksRepository.getOne(id);
+        Books book = booksRepository.getOne(id);
+        return book;
     }
 
     @Override

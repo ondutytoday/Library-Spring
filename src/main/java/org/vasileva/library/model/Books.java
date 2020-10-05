@@ -90,19 +90,7 @@ public class Books {
         this.pageCount = pageCount;
     }
 
-    @Override
-    public String toString() {
-        return "Books{" +
-                "bookId=" + bookId +
-                ", author='" + author + '\'' +
-                ", title='" + title + '\'' +
-                ", publishingYear=" + publishingYear +
-                ", genre='" + genre + '\'' +
-                ", pageCount=" + pageCount +
-                '}';
-    }
-
-    @Override
+/*    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -115,5 +103,5 @@ public class Books {
     @Override
     public int hashCode() {
         return bookId.hashCode();
-    }
+    }*/
 }
