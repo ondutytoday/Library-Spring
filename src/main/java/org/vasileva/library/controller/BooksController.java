@@ -4,11 +4,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.vasileva.library.model.Books;
 import org.vasileva.library.service.BooksService;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 @Controller
-@RequestMapping(value = "/books/")
+@RequestMapping(value = "books")
 public class BooksController {
 
     private BooksService booksService;
@@ -18,24 +23,47 @@ public class BooksController {
         this.booksService = booksService;
     }
 
-    @GetMapping
+    @GetMapping()
     public String showAllBooks (Model model) {
         model.addAttribute("books", booksService.getAll());
         return "index";
     }
 
-    @GetMapping (value = "{id}")
+    @GetMapping (value = "/{id}")
     public String showBook (@PathVariable (value = "id") Long id, Model model) {
         model.addAttribute("book", booksService.getById(id));
         return "show";
     }
 
-/*    @PostMapping (value = "")
-    public String saveBook (@RequestBody Books book) {
-        return "save_book";
+    @GetMapping (value = "/new")
+    public String newBook (Model model) {
+        model.addAttribute("book", new Books());
+        return "new";
     }
 
-    @PutMapping (value = ":id")
+    @PostMapping()
+    public String createBook (@ModelAttribute("book") Books book) {
+        booksService.save(book);
+        return "redirect:index";
+    }
+
+
+
+
+        /*(@RequestParam("title") String title,
+                              @RequestParam("author") String author,
+                              @RequestParam("publishing year") String publishingYear,
+                              @RequestParam("genre") String genre,
+                              @RequestParam("page count") String pageCount,
+                              Model model) throws ParseException {
+        Date date=new SimpleDateFormat("YYYY").parse(publishingYear);
+        Books book = new Books(author, title, date, genre, Integer.parseInt(pageCount));
+        booksService.save(book);
+        model.addAttribute("book", book);
+        return "successPage";
+    }*/
+
+/*    @PutMapping (value = ":id")
     public String updateBook (@RequestBody Books bookDetails, @PathVariable (value = "id") Long id) {
         return "put_book";
     }

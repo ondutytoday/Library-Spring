@@ -14,11 +14,11 @@ public class Books {
     @Column(name = "book_id", nullable = false)
     private Long bookId;
 
-    @Column(name = "author", nullable = false)
-    private String author;
-
     @Column(name = "title", nullable = false)
     private String title;
+
+    @Column(name = "author", nullable = false)
+    private String author;
 
     @Column(name = "publishing_year", nullable = false)
     @Temporal(TemporalType.DATE)
@@ -34,7 +34,7 @@ public class Books {
     public Books() {
     }
 
-    public Books(String author, String title, Date publishingYear, String genre, Integer pageCount) {
+    public Books(String title, String author, Date publishingYear, String genre, Integer pageCount) {
         this.author = author;
         this.title = title;
         this.publishingYear = publishingYear;
