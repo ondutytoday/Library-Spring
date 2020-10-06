@@ -13,6 +13,8 @@ import javax.persistence.EntityManagerFactory;
 @EnableJpaRepositories(basePackages = {"org.vasileva.library.repository"})
 @EnableTransactionManagement
 public class JpaConfig {
+
+
     @Bean
     public LocalEntityManagerFactoryBean entityManagerFactory() {
         LocalEntityManagerFactoryBean factoryBean = new LocalEntityManagerFactoryBean();
@@ -28,4 +30,41 @@ public class JpaConfig {
 
         return transactionManager;
     }
+
+
+/*    @Bean
+    public LocalSessionFactoryBean sessionFactory() {
+        LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
+        sessionFactory.setDataSource(dataSource());
+        sessionFactory.setPackagesToScan("org.vasileva.library.model");
+        sessionFactory.setHibernateProperties(hibernateProperties());
+
+        return sessionFactory;
+    }*/
+
+/*    @Bean
+    public DataSource dataSource() {
+        BasicDataSource dataSource = new BasicDataSource();
+        dataSource.setDriverClassName("org.postgresql.Driver");
+        dataSource.setUrl("jdbc:postgresql://localhost:5432/library");
+        dataSource.setUsername("postgres");
+        dataSource.setPassword("123");
+
+        return dataSource;
+    }*/
+
+/*    @Bean
+    public PlatformTransactionManager hibernateTransactionManager() {
+        HibernateTransactionManager transactionManager
+                = new HibernateTransactionManager();
+        transactionManager.setSessionFactory(sessionFactory().getObject());
+        return transactionManager;
+    }*/
+
+/*    private final Properties hibernateProperties() {
+        Properties hibernateProperties = new Properties();
+        hibernateProperties.setProperty("hibernate.hbm2ddl.auto", "none");
+
+        return hibernateProperties;
+    }*/
 }

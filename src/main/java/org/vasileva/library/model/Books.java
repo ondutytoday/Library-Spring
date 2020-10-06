@@ -1,5 +1,6 @@
 package org.vasileva.library.model;
 
+import org.hibernate.annotations.Proxy;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -7,6 +8,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "books")
+@Proxy(lazy = false)
 public class Books {
 
     @Id
