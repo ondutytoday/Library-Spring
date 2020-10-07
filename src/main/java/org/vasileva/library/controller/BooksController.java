@@ -39,47 +39,22 @@ public class BooksController {
         return "new";
     }
 
-/*    @PostMapping()
+    @PostMapping()
     public String createBook (@ModelAttribute("book") Books book) {
         booksService.save(book);
-        return "redirect:index";
-    }*/
-
-
-
-
-        /*(@RequestParam("title") String title,
-                              @RequestParam("author") String author,
-                              @RequestParam("publishing year") String publishingYear,
-                              @RequestParam("genre") String genre,
-                              @RequestParam("page count") String pageCount,
-                              Model model) throws ParseException {
-        Date date=new SimpleDateFormat("YYYY").parse(publishingYear);
-        Books book = new Books(author, title, date, genre, Integer.parseInt(pageCount));
-        booksService.save(book);
-        model.addAttribute("book", book);
-        return "successPage";
-    }*/
-
-/*    @PutMapping (value = ":id")
-    public String updateBook (@RequestBody Books bookDetails, @PathVariable (value = "id") Long id) {
-        return "put_book";
+        return "redirect:books";
     }
 
-    @DeleteMapping (value = ":id")
+    @DeleteMapping (value = "/remove/{id}")
     public String deleteBook (@PathVariable (value = "id") Long id) {
-        return "delete_book";
+        booksService.delete(id);
+        return "redirect:books";
     }
 
-
-    @GetMapping (value = "new")
-    public String newform () {
-        return "";
+    @PutMapping (value = "/edit/{id}")
+    public String editBook (@PathVariable (value = "id") Long id, Model model) {
+        model.addAttribute("book", booksService.getById(id));
+        return "show";
     }
-
-    @GetMapping (value = ":id/edit")
-    public String editform () {
-        return "";
-    }*/
 
 }

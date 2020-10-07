@@ -1,10 +1,8 @@
 package org.vasileva.library.model;
 
 import org.hibernate.annotations.Proxy;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity
 @Table(name = "books")
@@ -23,9 +21,7 @@ public class Books {
     private String author;
 
     @Column(name = "publishing_year", nullable = false)
-    @Temporal(TemporalType.DATE)
-    @DateTimeFormat(pattern = "YYYY")
-    private Date publishingYear;
+    private Integer publishingYear;
 
     @Column(name = "genre", nullable = false)
     private String genre;
@@ -36,7 +32,7 @@ public class Books {
     public Books() {
     }
 
-    public Books(String title, String author, Date publishingYear, String genre, Integer pageCount) {
+    public Books(String title, String author, Integer publishingYear, String genre, Integer pageCount) {
         this.author = author;
         this.title = title;
         this.publishingYear = publishingYear;
@@ -68,11 +64,11 @@ public class Books {
         this.title = title;
     }
 
-    public Date getPublishingYear() {
+    public Integer getPublishingYear() {
         return publishingYear;
     }
 
-    public void setPublishingYear(Date publishingYear) {
+    public void setPublishingYear(Integer publishingYear) {
         this.publishingYear = publishingYear;
     }
 
@@ -92,18 +88,4 @@ public class Books {
         this.pageCount = pageCount;
     }
 
-/*    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Books books = (Books) o;
-
-        return bookId.equals(books.bookId);
-    }
-
-    @Override
-    public int hashCode() {
-        return bookId.hashCode();
-    }*/
 }
