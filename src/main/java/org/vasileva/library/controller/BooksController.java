@@ -2,15 +2,15 @@ package org.vasileva.library.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.vasileva.library.model.Books;
 import org.vasileva.library.service.BooksService;
 
+import java.util.List;
+
 
 @Controller
-@RequestMapping(value = "books")
 public class BooksController {
 
     private BooksService booksService;
@@ -20,41 +20,43 @@ public class BooksController {
         this.booksService = booksService;
     }
 
-    @GetMapping()
+    @GetMapping("/books")
     public String showAllBooks (Model model) {
-        model.addAttribute("books", booksService.getAll());
-        return "index";
+        List<Books> list = booksService.getAll();
+        model.addAttribute("books", list);
+        return "book-list";
     }
 
-    @GetMapping ("/{id}")
-    @Transactional
-    public String showBook (@PathVariable (value = "id") Long id, Model model) {
-        model.addAttribute("book", booksService.getById(id));
-        return "show";
+    @GetMapping("/book-create")
+    public String createBookForm(Model model){
+        Books book = new Books();
+        model.addAttribute("book", book);
+        return "book-create";
     }
 
-    @GetMapping ("/new")
-    public String newBook (Model model) {
-        model.addAttribute("book", new Books());
-        return "new";
-    }
-
-    @PostMapping()
-    public String createBook (@ModelAttribute("book") Books book) {
+    @PostMapping("/book-create")
+    public String createUser(@ModelAttribute("book") Books book){
         booksService.save(book);
-        return "redirect:books";
+        return "redirect:/books";
     }
 
-    @DeleteMapping (value = "/remove/{id}")
-    public String deleteBook (@PathVariable (value = "id") Long id) {
+    @GetMapping("book-delete/{id}")
+    public String deleteBook(@PathVariable("id") Long id){
         booksService.delete(id);
-        return "redirect:books";
+        return "redirect:/books";
     }
 
-    @PutMapping (value = "/edit/{id}")
-    public String editBook (@PathVariable (value = "id") Long id, Model model) {
-        model.addAttribute("book", booksService.getById(id));
-        return "show";
+    @GetMapping("/book-update/{id}")
+    public String updateBookForm(@PathVariable("id") Long id, Model model){
+        Books book = booksService.getById(id);
+        model.addAttribute("book", book);
+        return "book-update";
+    }
+
+    @PostMapping("/book-update")
+    public String updateBook(Books book){
+        booksService.save(book);
+        return "redirect:/books";
     }
 
 }

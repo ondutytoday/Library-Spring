@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Books</title>
+</head>
+<body>
+<!--<div th:each="book : ${books}">
+    <a th:href="@{books/{id} (id=${book.getBookId()})}" th:text="${book.getTitle()}">title</a>
+    <a th:href="@{book-update/{id}(id=${book.bookId})}">Edit</a>
+    <a th:href="@{book-delete/{id}(id=${book.bookId})}">Delete</a>
+</div>-->
+
+<p><a href="/book-create">Create book</a></p>
+<br>
+<div th:switch="${books}">
+    <h2 th:case="null">No books found!</h2>
+    <div th:case="*">
+        <h2>Books</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Publishing Year</th>
+                <th>Genre</th>
+                <th>Page Count</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="book : ${books}">
+                <td th:text="${book.bookId}"></td>
+                <td th:text="${book.title}"></td>
+                <td th:text="${book.author}"></td>
+                <td th:text="${book.publishingYear}"></td>
+                <td th:text="${book.genre}"></td>
+                <td th:text="${book.pageCount}"></td>
+                <td><a th:href="@{book-update/{id}(id=${book.bookId})}">Edit</a></td>
+                <td><a th:href="@{book-delete/{id}(id=${book.bookId})}">Delete</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+</body>
+</html>
